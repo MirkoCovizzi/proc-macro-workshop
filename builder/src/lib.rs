@@ -25,6 +25,28 @@ pub fn derive(input: TokenStream) -> TokenStream {
             current_dir: Option<String>,
         }
 
+        impl #builder_ident {
+            fn executable(&mut self, executable: String) -> &mut Self {
+                self.executable = Some(executable);
+                self
+            }
+
+            fn args(&mut self, args: Vec<String>) -> &mut Self {
+                self.args = Some(args);
+                self
+            }
+
+            fn env(&mut self, env: Vec<String>) -> &mut Self {
+                self.env = Some(env);
+                self
+            }
+
+            fn current_dir(&mut self, current_dir: String) -> &mut Self {
+                self.current_dir = Some(current_dir);
+                self
+            }
+        }
+
         impl #name {
             pub fn builder() -> #builder_ident {
                 #builder_ident {
